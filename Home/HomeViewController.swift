@@ -42,6 +42,7 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: HomeCell.Identifier(), for: indexPath)
+//        tableView.dequeueReusableCell(withIdentifier: HomeCell.Identifier())
         return cell
     }
 

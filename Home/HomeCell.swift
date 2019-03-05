@@ -12,26 +12,40 @@ class HomeCell: BaseTableViewCell {
 
     var imageV:UIImageView = {
         let imgV = UIImageView()
+        imgV.backgroundColor = UIColor.red
         return imgV
     }()
     var titleLabel :UILabel = {
         let label = UILabel()
         label.textColor = UIColor.green
         label.text = "title"
+        
         return label
+        
     }()
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.setUpViews()
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpViews()
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     override func setUpViews() {
         super.setUpViews()
         self.addSubview(imageV)
         self.addSubview(titleLabel)
         imageV.snp.makeConstraints { (make) in
-            make.left.equalToSuperview()
+            make.left.equalToSuperview().offset(15)
             make.centerY.equalToSuperview()
             make.top.bottom.equalToSuperview()
             make.width.equalTo(30)
