@@ -26,7 +26,7 @@ class HttpClient: NSObject {
     }()
 
     
-    func get(url:String,completionHandler: @escaping (DataResponse<HtmlData>) -> Void)  {
+    func get(url:String,completionHandler: @escaping (DataResponse<HomeListData>) -> Void)  {
         let url = url
         let header = MOBILE_CLIENT_HEADERS
         self.manager.request(url,  headers: header).responseHtml { (res) in
@@ -53,20 +53,20 @@ extension DataRequest {
 //        }
 //    }
     
-    static func JIHTMLResponseSerializer() -> DataResponseSerializer<HtmlData> {
+    static func JIHTMLResponseSerializer() -> DataResponseSerializer<HomeListData> {
         return DataResponseSerializer { request, response, data, error in
           
 //            print("request====",request ?? "")
 //            print("response===",response ?? "")
 //            print("data=====",String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
-            let b = HtmlData()
-            b.html = ( String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
+            let b = HomeListData(html: String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
+//            b.html = ( String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
           return .success(b)
         }
     }
     
     @discardableResult
-    func responseHtml(queue: DispatchQueue? = nil, completionHandlerHtml: @escaping (DataResponse<HtmlData>) -> Void) -> Self {
+    func responseHtml(queue: DispatchQueue? = nil, completionHandlerHtml: @escaping (DataResponse<HomeListData>) -> Void) -> Self {
         
         return response(responseSerializer: Alamofire.DataRequest.JIHTMLResponseSerializer(), completionHandler: completionHandlerHtml)
     }

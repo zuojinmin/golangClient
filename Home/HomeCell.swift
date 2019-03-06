@@ -7,12 +7,25 @@
 //
 
 import UIKit
-
+import SDWebImage
 class HomeCell: BaseTableViewCell {
 
+    var bgView :UIView = {
+        let view = UIView()
+        view.backgroundColor = R.color.xFFFFFF
+        view.layer.cornerRadius = 5
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    
     var imageV:UIImageView = {
         let imgV = UIImageView()
         imgV.backgroundColor = UIColor.red
+        imgV.layer.cornerRadius = 15
+        imgV.layer.borderWidth = 1
+        imgV.layer.borderColor = UIColor.gray.cgColor
+        imgV.clipsToBounds = true
         return imgV
     }()
     var titleLabel :UILabel = {
@@ -35,6 +48,13 @@ class HomeCell: BaseTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpViews()
         
+        
+    }
+    
+    func loadData(data:homeModel?)  {
+        self.titleLabel.text = data?.title
+        self.imageV.sd_setImage(with: URL.init(string: data?.auth_imageUrl ?? ""), completed: nil)
+//        self.imageV.
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,13 +62,20 @@ class HomeCell: BaseTableViewCell {
     }
     override func setUpViews() {
         super.setUpViews()
-        self.addSubview(imageV)
-        self.addSubview(titleLabel)
+        self.addSubview(bgView)
+        bgView.addSubview(imageV)
+        bgView.addSubview(titleLabel)
+        bgView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-10)
+        }
         imageV.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(15)
+            make.left.equalToSuperview().offset(0)
             make.centerY.equalToSuperview()
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(30)
+//            make.top.bottom.equalToSuperview()
+            make.width.height.equalTo(30)
         }
         titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(imageV.snp.right).offset(10)
@@ -56,6 +83,8 @@ class HomeCell: BaseTableViewCell {
             make.right.equalToSuperview()
             make.height.equalTo(30)
         }
+        self.backgroundColor = R.color.xF5F5F5
+    
     }
     
     override class  func Identifier() -> String {

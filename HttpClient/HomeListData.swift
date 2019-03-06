@@ -22,9 +22,9 @@ struct homeModel {
 
 class HomeListData: NSObject {
     private  var html:String?
-    private var items: [String] = []
+    private var items: [homeModel] = []
     private var document :Document?
-    
+    public  var objlist:[homeModel]?
      init(html:String) {
         super.init()
         self.html = html
@@ -88,8 +88,9 @@ func parse() {
                 print("time=====",try time.text())
                 print("tag=herf====",try tag.attr("href"),try tag.text())
                 
+                items.append(homeModel.init(auth_imageUrl: try imgUrl.attr("src"), auth_name: try name.text(), auth_homeUrl: try name.attr("href"), title: try text.text(), title_href: try text.attr("href"), time: try time.text(), tag_href: try tag.attr("href"), tag_name: try tag.text()))
             }
-            
+            self.objlist = items
             //               items.append(html)
             
         }

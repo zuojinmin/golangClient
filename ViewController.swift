@@ -14,7 +14,8 @@ var items: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         HttpClient.default.get(url: "https://www.golangtc.com/", completionHandler: {(data)in
-            self.htmlparse(data: data.value?.html ?? "")
+//            self.htmlparse(data: data.value?.html ?? "")
+            print("objlist===",data.value?.objlist)
             return
         })
         // Do any additional setup after loading the view, typically from a nib.

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 class BaseTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
@@ -19,6 +19,8 @@ class BaseTableViewCell: UITableViewCell {
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
+        self.accessoryType = .none
         self.setUpViews()
         
     }
