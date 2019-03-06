@@ -36,6 +36,14 @@ class HomeCell: BaseTableViewCell {
         return label
         
     }()
+    var authLabel :UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.orange
+        label.text = "title"
+        label.sizeToFit()
+        return label
+    }()
+    
     
     
     override func awakeFromNib() {
@@ -54,6 +62,7 @@ class HomeCell: BaseTableViewCell {
     func loadData(data:homeModel?)  {
         self.titleLabel.text = data?.title
         self.imageV.sd_setImage(with: URL.init(string: data?.auth_imageUrl ?? ""), completed: nil)
+        self.authLabel.text = data?.auth_name
 //        self.imageV.
     }
     
@@ -82,6 +91,12 @@ class HomeCell: BaseTableViewCell {
             make.top.equalToSuperview()
             make.right.equalToSuperview()
             make.height.equalTo(30)
+        }
+        bgView.addSubview(authLabel)
+        authLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.left.equalTo(titleLabel)
+            make.height.equalTo(20)
         }
         self.backgroundColor = R.color.xF5F5F5
     
