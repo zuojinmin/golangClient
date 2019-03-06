@@ -67,9 +67,9 @@ class HomeCell: BaseTableViewCell {
         bgView.addSubview(titleLabel)
         bgView.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(10)
-            make.top.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(7.5)
             make.right.equalToSuperview().offset(-10)
-            make.bottom.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-5)
         }
         imageV.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(0)
