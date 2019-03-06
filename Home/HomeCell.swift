@@ -43,6 +43,13 @@ class HomeCell: BaseTableViewCell {
         label.sizeToFit()
         return label
     }()
+    var timeLabel :UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.orange
+        label.text = "title"
+        label.sizeToFit()
+        return label
+    }()
     
     
     
@@ -63,6 +70,7 @@ class HomeCell: BaseTableViewCell {
         self.titleLabel.text = data?.title
         self.imageV.sd_setImage(with: URL.init(string: data?.auth_imageUrl ?? ""), completed: nil)
         self.authLabel.text = data?.auth_name
+        self.timeLabel.text = data?.time
 //        self.imageV.
     }
     
@@ -97,6 +105,12 @@ class HomeCell: BaseTableViewCell {
             make.top.equalTo(titleLabel.snp.bottom)
             make.left.equalTo(titleLabel)
             make.height.equalTo(20)
+        }
+        bgView.addSubview(timeLabel)
+        timeLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(authLabel.snp.right)
+            make.height.equalTo(20)
+            make.top.equalTo(authLabel)
         }
         self.backgroundColor = R.color.xF5F5F5
     
