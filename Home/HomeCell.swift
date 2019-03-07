@@ -21,16 +21,17 @@ class HomeCell: BaseTableViewCell {
     
     var imageV:UIImageView = {
         let imgV = UIImageView()
-        imgV.backgroundColor = UIColor.red
-        imgV.layer.cornerRadius = 15
-        imgV.layer.borderWidth = 1
+//        imgV.backgroundColor = UIColor.red
+        imgV.layer.cornerRadius = 25
+        imgV.layer.borderWidth = 0.5
         imgV.layer.borderColor = UIColor.gray.cgColor
         imgV.clipsToBounds = true
         return imgV
     }()
     var titleLabel :UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.green
+        label.font = UIFont.init(name: "PingFangSC-Semibold", size: 14)
+        label.textColor = R.color.x3A3D50
         label.text = "title"
         
         return label
@@ -38,15 +39,17 @@ class HomeCell: BaseTableViewCell {
     }()
     var authLabel :UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.orange
+        label.textColor = R.color.xE1B971
+        label.font = UIFont.init(name: "PingFangSC-Semibold", size: 12)
         label.text = "title"
         label.sizeToFit()
         return label
     }()
     var timeLabel :UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.orange
+        label.textColor = R.color.xADADAD
         label.text = "title"
+        label.font = UIFont.init(name: "PingFangSC-Semibold", size: 12)
         label.sizeToFit()
         return label
     }()
@@ -89,20 +92,20 @@ class HomeCell: BaseTableViewCell {
             make.bottom.equalToSuperview().offset(-5)
         }
         imageV.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(0)
+            make.left.equalToSuperview().offset(5)
             make.centerY.equalToSuperview()
 //            make.top.bottom.equalToSuperview()
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(50)
         }
         titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(imageV.snp.right).offset(10)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(20)
             make.right.equalToSuperview()
             make.height.equalTo(30)
         }
         bgView.addSubview(authLabel)
         authLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLabel.snp.bottom)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.left.equalTo(titleLabel)
             make.height.equalTo(20)
         }

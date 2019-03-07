@@ -35,9 +35,10 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
         })
     }
     override func setUpViews() {
+        super.setUpViews()
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
+            make.top.equalTo(naviBar.snp.bottom)
             make.bottom.equalToSuperview()
             make.left.equalToSuperview().offset(0)
             make.right.equalToSuperview().offset(0)
