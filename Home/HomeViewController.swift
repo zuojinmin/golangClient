@@ -29,8 +29,11 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
     func request()  {
         HttpClient.default.get(url: "https://www.golangtc.com/", completionHandler: {[weak self](data)in
 //            self.htmlparse(data: data.value?.html ?? "")
-            print("objlist===",data.value?.objlist)
-            self?.objlist = data.value?.objlist
+            guard let response:HomeListData = data.value as! HomeListData  else{
+                return
+            }
+            print("objlist===",response.objlist)
+            self?.objlist = response.objlist
             self?.tableView.reloadData()
         })
     }
@@ -63,6 +66,18 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
         return 120
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let data = self.objlist?[indexPath.row]
+        
+        HttpClient.default.get(url: WEB_URL_HOME + (data?.title_href  ?? ""), completionHandler: {[weak self](data)in
+            //            self.htmlparse(data: data.value?.html ?? "")
+            guard let response:HomeListData = data.value as? HomeListData ,response.classForCoder == HomeListData.classForCoder()  else{
+                return
+            }
+            print("objlist===",response.objlist)
+            self?.objlist = response.objlist
+            self?.tableView.reloadData()
+        })
         self.navigationController?.pushViewController(HomeContentViewController(), animated: true)
     }
 

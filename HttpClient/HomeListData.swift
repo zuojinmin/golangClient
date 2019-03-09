@@ -20,7 +20,8 @@ struct homeModel {
     var tag_name:String?
 }
 
-class HomeListData: NSObject {
+
+class HomeListData: BaseResponse {
     private  var html:String?
     private var items: [homeModel] = []
     private var document :Document?

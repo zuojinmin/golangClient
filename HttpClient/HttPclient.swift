@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import ObjectMapper
+let WEB_URL_HOME = "https://www.golangtc.com"
+let WEB_URL_TOPIC = "https://www.golangtc.com/t/"
 //用户代理，使用这个切换是获取 m站点 还是www站数据
 let USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B91"
 let ACCEPT =  "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
@@ -26,7 +28,7 @@ class HttpClient: NSObject {
     }()
 
     
-    func get(url:String,completionHandler: @escaping (DataResponse<HomeListData>) -> Void)  {
+    func get(url:String,completionHandler: @escaping (DataResponse<BaseResponse>) -> Void)  {
         let url = url
         let header = MOBILE_CLIENT_HEADERS
         self.manager.request(url,  headers: header).responseHtml { (res) in
@@ -53,18 +55,24 @@ extension DataRequest {
 //        }
 //    }
     
-    static func JIHTMLResponseSerializer() -> DataResponseSerializer<HomeListData> {
+    static func JIHTMLResponseSerializer() -> DataResponseSerializer<BaseResponse> {
         return DataResponseSerializer { request, response, data, error in
-          
+          //请求为topic 内容
+            if request?.url?.absoluteString.contains(WEB_URL_TOPIC) ?? false {
+                let response = HomeListTopic(html: String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
+                
+                return .success(response)
+                
+            }
 
-            let b = HomeListData(html: String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
-//            b.html = ( String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
-          return .success(b)
+        let response = HomeListData(html: String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
+
+          return .success(response)
         }
     }
     
     @discardableResult
-    func responseHtml(queue: DispatchQueue? = nil, completionHandlerHtml: @escaping (DataResponse<HomeListData>) -> Void) -> Self {
+    func responseHtml(queue: DispatchQueue? = nil, completionHandlerHtml: @escaping (DataResponse<BaseResponse>) -> Void) -> Self {
         
         return response(responseSerializer: Alamofire.DataRequest.JIHTMLResponseSerializer(), completionHandler: completionHandlerHtml)
     }

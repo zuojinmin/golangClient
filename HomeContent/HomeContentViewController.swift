@@ -10,6 +10,8 @@ import UIKit
 
 class HomeContentViewController: BaseViewController {
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
