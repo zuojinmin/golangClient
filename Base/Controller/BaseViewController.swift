@@ -22,17 +22,25 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
        self.setUpViews()
+        self.navigationController?.navigationBar.isHidden = true
     }
     func setUpViews(){
         self.view.addSubview(naviBar)
         naviBar.snp.makeConstraints { (make) in
-           make.height.equalTo(44)
-           make.left.right.equalToSuperview()
-           make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+          
+        make.height.equalTo(UIScreen.statusBarHeight + UIScreen.navigationBarHeight)
+        make.left.right.equalToSuperview()
+        make.top.equalToSuperview()
         }
         
     }
 
    
 
+}
+extension UIScreen {
+    static let width: CGFloat = UIScreen.main.bounds.width
+    static let height: CGFloat = UIScreen.main.bounds.height
+    static let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
+    static let navigationBarHeight: CGFloat = 44
 }

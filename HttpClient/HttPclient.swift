@@ -56,9 +56,7 @@ extension DataRequest {
     static func JIHTMLResponseSerializer() -> DataResponseSerializer<HomeListData> {
         return DataResponseSerializer { request, response, data, error in
           
-//            print("request====",request ?? "")
-//            print("response===",response ?? "")
-//            print("data=====",String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
+
             let b = HomeListData(html: String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
 //            b.html = ( String.init(data: data ?? Data(), encoding: String.Encoding.utf8) ?? "")
           return .success(b)
