@@ -10,6 +10,10 @@ import UIKit
 
 class HomeContentViewController: BaseViewController {
 
+    var titleLabel : UILabel = {
+        let label = UILabel()
+        return label
+    }()
     
     
     override func viewDidLoad() {

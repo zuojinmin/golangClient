@@ -71,11 +71,12 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
         
         HttpClient.default.get(url: WEB_URL_HOME + (data?.title_href  ?? ""), completionHandler: {[weak self](data)in
             //            self.htmlparse(data: data.value?.html ?? "")
-            guard let response:HomeListData = data.value as? HomeListData ,response.classForCoder == HomeListData.classForCoder()  else{
+            
+            guard let response:HomeListTopic = data.value as? HomeListTopic ,response.classForCoder == HomeListTopic.classForCoder()  else{
                 return
             }
-            print("objlist===",response.objlist)
-            self?.objlist = response.objlist
+            print("objdata=============",response.objData)
+//            self?.objlist = response.objlist
             self?.tableView.reloadData()
         })
         self.navigationController?.pushViewController(HomeContentViewController(), animated: true)

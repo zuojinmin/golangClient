@@ -8,11 +8,24 @@
 
 import UIKit
 import SwiftSoup
+struct homeTopicModel {
+    var topicTitle:String? // 文章标题
+    var auth_name :String?//作者名称
+    var auth_homeUrl :String?//作者的主页
+    var title :String?
+    var title_href :String?
+    var time:String?
+    var tag_href :String?
+    var tag_name:String?
+    var read_number:String?//阅读次数
+    var topic_content:String?
+}
 class HomeListTopic: BaseResponse {
     private  var html:String?
     private var items: [homeModel] = []
     private var document :Document?
     public  var objlist:[homeModel]?
+    public  var objData:homeTopicModel?
     init(html:String) {
         super.init()
         self.html = html
@@ -69,10 +82,26 @@ class HomeListTopic: BaseResponse {
                     guard let read:Elements = try? element.select("[class=metadata] span") else{
                             return
                     }
+                guard let conents:Element =  try element.select("[class=media-content]").first() , let content:Elements = try conents.select("[class=content]")   else{
+                    return
+                }
+                    let title = try text.text()
                     print("文章标题====",try text.text())
+                    let auth_name = try span.text()
                     print("作者是====",try span.text())
+                    let times = try time.text()
                     print("时间是====",try time.text())
+                    let read_number = try read.last()?.text()
                     print("浏览数量====",try read.last()?.text())
+                    let topic_content = try content.last()?.text()
+                
+                    print("内容====",try content.last()?.text())
+                
+                self.objData = homeTopicModel.init(topicTitle: title, auth_name: auth_name, auth_homeUrl: "", title: "", title_href: "", time: times, tag_href: "", tag_name: "", read_number: read_number, topic_content: topic_content)
+                for ele in content.last()?.children() ?? Elements(){
+                    
+                    print("文章内容====",try ele.text())
+                }
                 
                 self.objlist = items
                 //               items.append(html)
