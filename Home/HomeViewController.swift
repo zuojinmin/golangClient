@@ -76,10 +76,11 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
                 return
             }
             print("objdata=============",response.objData)
+            self?.navigationController?.pushViewController(HomeContentViewController.init(topicData: response.objData), animated: true)
 //            self?.objlist = response.objlist
-            self?.tableView.reloadData()
+//            self?.tableView.reloadData()
         })
-        self.navigationController?.pushViewController(HomeContentViewController(), animated: true)
+        
     }
 
 }
